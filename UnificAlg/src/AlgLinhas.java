@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class AlgLinhas {
     public static void DesenhaDDA(int x1, int y1, int x2, int y2, Graphics g) {
-        System.out.println("Chamando DesenhaDDA: x "+x1+"; y "+y1+"; x "+x2+"; y "+y2);
+        System.out.println("Chamando DesenhaDDA: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
         int dx = x2 - x1;
         int dy = y2 - y1;
         int steps = Math.max(Math.abs(dx), Math.abs(dy));
@@ -18,7 +18,7 @@ public class AlgLinhas {
     }
 
     public static void DesenhaAnalitico(int x1, int y1, int x2, int y2, Graphics g) {
-        System.out.println("Chamando DesenhaAnalitico: x "+x1+"; y "+y1+"; x "+x2+"; y "+y2);
+        System.out.println("Chamando DesenhaAnalitico: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
         int dx = x2 - x1;
         int dy = y2 - y1;
         float m = (float) dy / dx;
@@ -40,7 +40,7 @@ public class AlgLinhas {
     }
 
     public static void DesenhaBresenham(int x1, int y1, int x2, int y2, Graphics g) {
-        System.out.println("Chamando DesenhaBresenham: x "+x1+"; y "+y1+"; x "+x2+"; y "+y2);
+        System.out.println("Chamando DesenhaBresenham: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
         int dx = Math.abs(x2 - x1);
         int dy = Math.abs(y2 - y1);
         int sx = (x1 < x2) ? 1 : -1;

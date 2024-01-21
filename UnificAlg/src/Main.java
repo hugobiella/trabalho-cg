@@ -7,6 +7,7 @@ public class Main extends JFrame {
     private int startX, startY, endX, endY;
     private JComboBox<String> colorComboBox;
     private JComboBox<String> algorithmComboBox;
+    private DrawingPanel drawingPanel;
 
     public Main() {
         setTitle("Paint 2");
@@ -19,13 +20,12 @@ public class Main extends JFrame {
         String[] algorithms = {"DDA", "Analítico", "Bresenham"};
         algorithmComboBox = new JComboBox<>(algorithms);
 
-        DrawingPanel drawingPanel = new DrawingPanel();
-        JPanel controlPanel = new JPanel();
+        drawingPanel = new DrawingPanel();
 
+        JPanel controlPanel = new JPanel();
         controlPanel.add(colorComboBox);
         controlPanel.add(algorithmComboBox);
         add(controlPanel, BorderLayout.NORTH);
-
         add(drawingPanel);
 
         drawingPanel.addMouseListener(new MouseAdapter() {
@@ -42,6 +42,10 @@ public class Main extends JFrame {
                     startY = 0;
                 }
             }
+        });
+
+        algorithmComboBox.addActionListener(e -> {
+            drawingPanel.clearDrawing();
         });
     }
 
@@ -75,6 +79,7 @@ public class Main extends JFrame {
         public DrawingPanel() {
             setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
         }
+
         private void drawLine(int x1, int y1, int x2, int y2, Color color, String algorithm) {
             Graphics g = getGraphics();
             g.setColor(color);
@@ -90,6 +95,11 @@ public class Main extends JFrame {
                     break;
             }
         }
+
+        private void clearDrawing() {
+            repaint();
+        }
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
