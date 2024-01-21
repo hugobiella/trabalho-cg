@@ -17,7 +17,10 @@ public class Main extends JFrame {
         String[] colors = {"Vermelho", "Verde", "Azul"};
         colorComboBox = new JComboBox<>(colors);
 
-        String[] algorithms = { "Analítico", "DDA", "Bresenham"};
+        String[] algorithms = { "Analítico - Linha", "DDA - Linha", "Bresenham - Linha",
+                                "Varredura - Polígono", "BoundaryFill - Polígono", "AnáliseGeométrica - Polígono",
+                                "Paramétrica - Círculo", "Incremental - Círculo", "Bresenham - Círculo"};
+
         algorithmComboBox = new JComboBox<>(algorithms);
 
         drawingPanel = new DrawingPanel();
@@ -84,14 +87,26 @@ public class Main extends JFrame {
             Graphics g = getGraphics();
             g.setColor(color);
             switch (algorithm) {
-                case "Analítico":
+                case "Analítico - Linha":
                     AlgLinhas.algAnalitic(x1, y1, x2, y2, g);
                     break;
-                case "DDA":
+                case "DDA - Linha":
                     AlgLinhas.algDDA(x1, y1, x2, y2, g);
                     break;
-                case "Bresenham":
+                case "Bresenham - Linha":
                     AlgLinhas.algBres(x1, y1, x2, y2, g);
+                    break;
+                case "Varredura - Polígono":
+                    break;
+                case "BoundaryFill - Polígono":
+                    break;
+                case "AnáliseGeométrica - Polígono":
+                    break;
+                case "Paramétrica - Círculo":
+                    break;
+                case "Incremental - Círculo":
+                    break;
+                case "Bresenham - Círculo":
                     break;
             }
         }
