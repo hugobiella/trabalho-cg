@@ -17,7 +17,7 @@ public class Main extends JFrame {
         String[] colors = {"Vermelho", "Verde", "Azul"};
         colorComboBox = new JComboBox<>(colors);
 
-        String[] algorithms = {"DDA", "Analítico", "Bresenham"};
+        String[] algorithms = { "Analítico", "DDA", "Bresenham"};
         algorithmComboBox = new JComboBox<>(algorithms);
 
         drawingPanel = new DrawingPanel();
@@ -84,14 +84,14 @@ public class Main extends JFrame {
             Graphics g = getGraphics();
             g.setColor(color);
             switch (algorithm) {
-                case "DDA":
-                    AlgLinhas.DesenhaDDA(x1, y1, x2, y2, g);
-                    break;
                 case "Analítico":
-                    AlgLinhas.DesenhaAnalitico(x1, y1, x2, y2, g);
+                    AlgLinhas.algAnalitic(x1, y1, x2, y2, g);
+                    break;
+                case "DDA":
+                    AlgLinhas.algDDA(x1, y1, x2, y2, g);
                     break;
                 case "Bresenham":
-                    AlgLinhas.DesenhaBresenham(x1, y1, x2, y2, g);
+                    AlgLinhas.algBres(x1, y1, x2, y2, g);
                     break;
             }
         }

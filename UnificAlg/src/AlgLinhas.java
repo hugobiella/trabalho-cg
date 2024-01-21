@@ -1,8 +1,9 @@
 import java.awt.*;
 
 public class AlgLinhas {
+
     public static void DesenhaDDA(int x1, int y1, int x2, int y2, Graphics g) {
-        System.out.println("Chamando DesenhaDDA: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
+        System.out.println("DesenhaDDA: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
         int dx = x2 - x1;
         int dy = y2 - y1;
         int steps = Math.max(Math.abs(dx), Math.abs(dy));
@@ -18,7 +19,7 @@ public class AlgLinhas {
     }
 
     public static void DesenhaAnalitico(int x1, int y1, int x2, int y2, Graphics g) {
-        System.out.println("Chamando DesenhaAnalitico: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
+        System.out.println("DesenhaAnalitico: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
         int dx = x2 - x1;
         int dy = y2 - y1;
         float m = (float) dy / dx;
@@ -40,7 +41,7 @@ public class AlgLinhas {
     }
 
     public static void DesenhaBresenham(int x1, int y1, int x2, int y2, Graphics g) {
-        System.out.println("Chamando DesenhaBresenham: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
+        System.out.println("DesenhaBresenham: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
         int dx = Math.abs(x2 - x1);
         int dy = Math.abs(y2 - y1);
         int sx = (x1 < x2) ? 1 : -1;
@@ -58,6 +59,66 @@ public class AlgLinhas {
             if (e2 < dx) {
                 err += dx;
                 y += sy;
+            }
+        }
+    }
+
+    public static void putPixel(Graphics g, int x, int y) {
+        g.drawLine(x, y, x, y);
+    }
+
+    public static void algDDA(int x1, int y1, int x2, int y2, Graphics g) {
+        System.out.println("algDDA: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
+        int steps;
+        float x=x1, y=y1, incX, incY;
+        int dx = x2 - x1;
+        int dy = y2 - y1;
+        if(Math.abs(dx)>Math.abs(dy)) {
+            steps = Math.abs(dx); incX = 1; incY= (float) dy /dx; }
+        else {
+            steps = Math.abs(dy); incY = 1; incX= (float) dx /dy; }
+        for(int i=0; i<steps; i++) {
+            x = x + incX;
+            y = y + incY;
+            putPixel(g,Math.round(x),Math.round(y)); }
+    }
+
+    public static void algAnalitic(int x1, int y1, int x2, int y2, Graphics g) {
+        System.out.println("algAnalitic: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
+
+        float m, b, dy, dx;
+        dy = y2 - y1;
+        dx = x2 - x1;
+        m = (float) dy/dx;
+        b = (float) (y1 - m * x1);
+        for(int x = x1; x<=x2; x++) {
+            int y = (int) (m * x + b);
+            putPixel(g,x,y);
+        }
+    }
+
+    public static void algBres(int x1, int y1, int x2, int y2, Graphics g) {
+        System.out.println("algBres: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
+        int x = x1, y = y1, d=0, dx = x2-x1, dy = y2-y1, c, m, incX=1, incY=1;
+        if(dx < 0) {incX = -1; dx = -dx;}
+        if(dy < 0) {incY = -1; dy = -dy;}
+        if(dy <= dx) {
+            c = 2 * dx; m = 2 * dy;
+            for(;;) {
+                putPixel(g,x,y);
+                if (x == x2) break;
+                x += incX;
+                d += m;
+                if(d >= dx) {y += incY; d -= c;}
+            }
+        } else {
+            c = 2 * dy; m = 2 * dx;
+            for(;;) {
+                putPixel(g,x,y);
+                if (y == y2) break;
+                y += incY;
+                d += m;
+                if(d >= dy) {x += incX; d -= c;}
             }
         }
     }
