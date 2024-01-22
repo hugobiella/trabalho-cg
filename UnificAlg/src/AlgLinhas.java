@@ -68,7 +68,7 @@ public class AlgLinhas {
     }
 
     public static void algDDA(int x1, int y1, int x2, int y2, Graphics g) {
-        System.out.println("algDDA: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
+        System.out.println("algDDA_linha: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
         int steps;
         float x=x1, y=y1, incX, incY;
         int dx = x2 - x1;
@@ -84,7 +84,7 @@ public class AlgLinhas {
     }
 
     public static void algAnalitic(int x1, int y1, int x2, int y2, Graphics g) {
-        System.out.println("algAnalitic: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
+        System.out.println("algAnalitic_linha: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
 
         float m, b, dy, dx;
         dy = y2 - y1;
@@ -98,7 +98,7 @@ public class AlgLinhas {
     }
 
     public static void algBres(int x1, int y1, int x2, int y2, Graphics g) {
-        System.out.println("algBres: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
+        System.out.println("algBres_linha: X:"+x1+", Y:"+y1+"; X:"+x2+", Y:"+y2);
         int x = x1, y = y1, d=0, dx = x2-x1, dy = y2-y1, c, m, incX=1, incY=1;
         if(dx < 0) {incX = -1; dx = -dx;}
         if(dy < 0) {incY = -1; dy = -dy;}

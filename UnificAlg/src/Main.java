@@ -8,6 +8,7 @@ public class Main extends JFrame {
     private JComboBox<String> colorComboBox;
     private JComboBox<String> algorithmComboBox;
     private DrawingPanel drawingPanel;
+    private double raioCirculo;
 
     public Main() {
         setTitle("Paint 2");
@@ -17,14 +18,18 @@ public class Main extends JFrame {
         String[] colors = {"Vermelho", "Verde", "Azul"};
         colorComboBox = new JComboBox<>(colors);
 
-        String[] algorithms = { "Analítico - Linha", "DDA - Linha", "Bresenham - Linha",
-                                "Varredura - Polígono", "BoundaryFill - Polígono", "AnáliseGeométrica - Polígono",
-                                "Paramétrica - Círculo", "Incremental - Círculo", "Bresenham - Círculo"};
-
+        String[] algorithms = { "Analítico - Linha",
+                                "DDA - Linha",
+                                "Bresenham - Linha",
+                                "Varredura - Polígono",
+                                "BoundaryFill - Polígono",
+                                "AnáliseGeométrica - Polígono",
+                                "Paramétrica - Círculo",
+                                "Incremental - Círculo",
+                                "Bresenham - Círculo"};
         algorithmComboBox = new JComboBox<>(algorithms);
 
         drawingPanel = new DrawingPanel();
-
         JPanel controlPanel = new JPanel();
         controlPanel.add(colorComboBox);
         controlPanel.add(algorithmComboBox);
@@ -34,19 +39,31 @@ public class Main extends JFrame {
         drawingPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (startX == 0 && startY == 0) {
-                    startX = e.getX();
-                    startY = e.getY();
+                if (algorithmComboBox.getSelectedItem().toString().contains("Círculo")) {
+                    String raioStr = JOptionPane.showInputDialog(Main.this, "Digite o raio do círculo:");
+                    try {
+                        raioCirculo = Double.parseDouble(raioStr);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(Main.this, "Insira um valor numérico válido para o raio.");
+                        return;
+                    }
+                    int centerX = e.getX();
+                    int centerY = e.getY();
+                    drawingPanel.drawCircle(centerX, centerY, raioCirculo, getSelectedColor(), getSelectedAlgorithm());
                 } else {
-                    endX = e.getX();
-                    endY = e.getY();
-                    drawingPanel.drawLine(startX, startY, endX, endY, getSelectedColor(), getSelectedAlgorithm());
-                    startX = 0;
-                    startY = 0;
+                    if (startX == 0 && startY == 0) {
+                        startX = e.getX();
+                        startY = e.getY();
+                    } else {
+                        endX = e.getX();
+                        endY = e.getY();
+                        drawingPanel.drawLine(startX, startY, endX, endY, getSelectedColor(), getSelectedAlgorithm());
+                        startX = 0;
+                        startY = 0;
+                    }
                 }
             }
         });
-
         algorithmComboBox.addActionListener(e -> {
             drawingPanel.clearDrawing();
         });
@@ -96,17 +113,35 @@ public class Main extends JFrame {
                 case "Bresenham - Linha":
                     AlgLinhas.algBres(x1, y1, x2, y2, g);
                     break;
+            }
+        }
+
+        private void drawCircle(int centerX, int centerY, double radius, Color color, String algorithm) {
+            Graphics g = getGraphics();
+            g.setColor(color);
+            switch (algorithm) {
+                case "Paramétrica - Círculo":
+                    System.out.println(raioCirculo);
+                    break;
+                case "Incremental - Círculo":
+                    System.out.println(raioCirculo);
+                    break;
+                case "Bresenham - Círculo":
+                    int newRaioCirculo = (int) raioCirculo;
+                    AlgCirc.algBres(g, newRaioCirculo, centerX, centerY);
+                    break;
+            }
+        }
+
+        private void drawPol(Color color, String algorithm) {
+            Graphics g = getGraphics();
+            g.setColor(color);
+            switch (algorithm) {
                 case "Varredura - Polígono":
                     break;
                 case "BoundaryFill - Polígono":
                     break;
                 case "AnáliseGeométrica - Polígono":
-                    break;
-                case "Paramétrica - Círculo":
-                    break;
-                case "Incremental - Círculo":
-                    break;
-                case "Bresenham - Círculo":
                     break;
             }
         }
