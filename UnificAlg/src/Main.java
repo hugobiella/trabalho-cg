@@ -18,15 +18,7 @@ public class Main extends JFrame {
         String[] colors = {"Vermelho", "Verde", "Azul"};
         colorComboBox = new JComboBox<>(colors);
 
-        String[] algorithms = {"Analítico - Linha",
-                "DDA - Linha",
-                "Bresenham - Linha",
-                "Varredura - Polígono",
-                "BoundaryFill - Polígono",
-                "AnáliseGeométrica - Polígono",
-                "Paramétrica - Círculo",
-                "Incremental - Círculo",
-                "Bresenham - Círculo"};
+        String[] algorithms = {"Analítico - Linha", "DDA - Linha", "Bresenham - Linha", "Varredura - Polígono", "BoundaryFill - Polígono", "AnáliseGeométrica - Polígono", "Paramétrica - Círculo", "Incremental - Círculo", "Bresenham - Círculo"};
 
         algorithmComboBox = new JComboBox<>(algorithms);
 
@@ -42,11 +34,11 @@ public class Main extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 String selectedAlgorithm = getSelectedAlgorithm();
                 if (selectedAlgorithm.contains("Círculo")) {
-                    String raioStr = JOptionPane.showInputDialog(Main.this, "Digite o raio do círculo:");
+                    String raioStr = JOptionPane.showInputDialog(Main.this, "raio do círculo:");
                     try {
                         raioCirculo = Double.parseDouble(raioStr);
                     } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(Main.this, "Insira um valor numérico válido para o raio.");
+                        JOptionPane.showMessageDialog(Main.this, "insira um valor válido.");
                         return;
                     }
                     int centerX = e.getX();
@@ -55,11 +47,11 @@ public class Main extends JFrame {
                 } else if (selectedAlgorithm.contains("Polígono")) {
                     int numLados = 0;
                     if (drawingPanel.getNumLadosPoligono() == 0) {
-                        String numLadosStr = JOptionPane.showInputDialog(Main.this, "Digite o número de lados do polígono:");
+                        String numLadosStr = JOptionPane.showInputDialog(Main.this, "número de lados:");
                         try {
                             numLados = Integer.parseInt(numLadosStr);
                         } catch (NumberFormatException ex) {
-                            JOptionPane.showMessageDialog(Main.this, "Insira um valor numérico válido para o número de lados.");
+                            JOptionPane.showMessageDialog(Main.this, "insira um valor válido.");
                             return;
                         }
                     }
