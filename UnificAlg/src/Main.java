@@ -27,6 +27,7 @@ public class Main extends JFrame {
                                 "Paramétrica - Círculo",
                                 "Incremental - Círculo",
                                 "Bresenham - Círculo"};
+        
         algorithmComboBox = new JComboBox<>(algorithms);
 
         drawingPanel = new DrawingPanel();
@@ -117,17 +118,17 @@ public class Main extends JFrame {
         }
 
         private void drawCircle(int centerX, int centerY, double radius, Color color, String algorithm) {
+            int newRaioCirculo = (int) raioCirculo;
             Graphics g = getGraphics();
             g.setColor(color);
             switch (algorithm) {
                 case "Paramétrica - Círculo":
-                    System.out.println(raioCirculo);
+                    AlgCirc.algParam(g, newRaioCirculo, centerX, centerY);
                     break;
                 case "Incremental - Círculo":
-                    System.out.println(raioCirculo);
+                    AlgCirc.algIncSem(g, newRaioCirculo, centerX, centerY);
                     break;
                 case "Bresenham - Círculo":
-                    int newRaioCirculo = (int) raioCirculo;
                     AlgCirc.algBres(g, newRaioCirculo, centerX, centerY);
                     break;
             }

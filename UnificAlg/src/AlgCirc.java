@@ -30,4 +30,26 @@ public class AlgCirc {
         }
     }
 
+    public static void algIncSem(Graphics g, int raio, int centerX, int centerY) {
+        System.out.println("algIncSem_circ:"+raio);
+        int x=0, y=0;
+        double ang=0.0;
+        while(ang<Math.PI/4) {
+            x = (int) (raio * Math.cos(ang));
+            y = (int) (raio * Math.sin(ang));
+            simetria(g,x,y,centerX,centerY);
+            ang = ang + (double) 1/raio;
+        }
+    }
+
+    public static void algParam(Graphics g, int raio, int centerX, int centerY) {
+        System.out.println("algParam_circ:"+raio);
+        int x, y;
+        for (int ang=0; ang<360; ang++) {
+            x = (int) (raio * Math.cos(Math.PI*ang/180));
+            y = (int) (raio * Math.sin(Math.PI*ang/180));
+            putPixel(g,x,y,centerX,centerY);
+        }
+    }
+
 }
