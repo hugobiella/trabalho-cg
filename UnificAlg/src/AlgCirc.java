@@ -20,7 +20,7 @@ public class AlgCirc {
 
     public static void algBres(Graphics g, int raio, int centerX, int centerY) {
         System.out.println("algBres_circ:"+raio);
-        int x=0, y=raio, u=1, v=2 *raio-1, e=0;
+        int x=0, y=raio, u=1, v=2 * raio-1, e=0;
         while(x<=y) {
             simetria(g,x,y,centerX,centerY);
             x++;
