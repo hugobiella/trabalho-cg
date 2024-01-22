@@ -18,16 +18,16 @@ public class Main extends JFrame {
         String[] colors = {"Vermelho", "Verde", "Azul"};
         colorComboBox = new JComboBox<>(colors);
 
-        String[] algorithms = { "Analítico - Linha",
-                                "DDA - Linha",
-                                "Bresenham - Linha",
-                                "Varredura - Polígono",
-                                "BoundaryFill - Polígono",
-                                "AnáliseGeométrica - Polígono",
-                                "Paramétrica - Círculo",
-                                "Incremental - Círculo",
-                                "Bresenham - Círculo"};
-        
+        String[] algorithms = {"Analítico - Linha",
+                "DDA - Linha",
+                "Bresenham - Linha",
+                "Varredura - Polígono",
+                "BoundaryFill - Polígono",
+                "AnáliseGeométrica - Polígono",
+                "Paramétrica - Círculo",
+                "Incremental - Círculo",
+                "Bresenham - Círculo"};
+
         algorithmComboBox = new JComboBox<>(algorithms);
 
         drawingPanel = new DrawingPanel();
@@ -40,7 +40,8 @@ public class Main extends JFrame {
         drawingPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (algorithmComboBox.getSelectedItem().toString().contains("Círculo")) {
+                String selectedAlgorithm = getSelectedAlgorithm();
+                if (selectedAlgorithm.contains("Círculo")) {
                     String raioStr = JOptionPane.showInputDialog(Main.this, "Digite o raio do círculo:");
                     try {
                         raioCirculo = Double.parseDouble(raioStr);
@@ -50,18 +51,28 @@ public class Main extends JFrame {
                     }
                     int centerX = e.getX();
                     int centerY = e.getY();
-                    drawingPanel.drawCircle(centerX, centerY, raioCirculo, getSelectedColor(), getSelectedAlgorithm());
-                } else {
-                    if (startX == 0 && startY == 0) {
-                        startX = e.getX();
-                        startY = e.getY();
-                    } else {
-                        endX = e.getX();
-                        endY = e.getY();
-                        drawingPanel.drawLine(startX, startY, endX, endY, getSelectedColor(), getSelectedAlgorithm());
-                        startX = 0;
-                        startY = 0;
+                    drawingPanel.drawCircle(centerX, centerY, raioCirculo, getSelectedColor(), selectedAlgorithm);
+                } else if (selectedAlgorithm.contains("Polígono")) {
+                    int numLados = 0;
+                    if (drawingPanel.getNumLadosPoligono() == 0) {
+                        String numLadosStr = JOptionPane.showInputDialog(Main.this, "Digite o número de lados do polígono:");
+                        try {
+                            numLados = Integer.parseInt(numLadosStr);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(Main.this, "Insira um valor numérico válido para o número de lados.");
+                            return;
+                        }
                     }
+                    drawingPanel.drawPol(getSelectedColor(), selectedAlgorithm, numLados);
+                } else if (startX == 0 && startY == 0) {
+                    startX = e.getX();
+                    startY = e.getY();
+                } else {
+                    endX = e.getX();
+                    endY = e.getY();
+                    drawingPanel.drawLine(startX, startY, endX, endY, getSelectedColor(), selectedAlgorithm);
+                    startX = 0;
+                    startY = 0;
                 }
             }
         });
@@ -97,6 +108,12 @@ public class Main extends JFrame {
     }
 
     private class DrawingPanel extends JPanel {
+        private int numLadosPoligono;
+
+        public int getNumLadosPoligono() {
+            return numLadosPoligono;
+        }
+
         public DrawingPanel() {
             setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
         }
@@ -134,15 +151,18 @@ public class Main extends JFrame {
             }
         }
 
-        private void drawPol(Color color, String algorithm) {
+        private void drawPol(Color color, String algorithm, int numLados) {
             Graphics g = getGraphics();
             g.setColor(color);
             switch (algorithm) {
                 case "Varredura - Polígono":
+                    System.out.println(numLados);
                     break;
                 case "BoundaryFill - Polígono":
+                    System.out.println(numLados);
                     break;
                 case "AnáliseGeométrica - Polígono":
+                    System.out.println(numLados);
                     break;
             }
         }
